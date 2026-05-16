@@ -16,7 +16,7 @@ var manifestJson = []byte(`{
 	"catalogs": [
 		{
 			"type": "tv",
-			"id": "streamed-live-sports",
+			"id": "streamed-live-sports"
 		}
 	],
 	"idPrefixes": ["streamed-live-sports"]
