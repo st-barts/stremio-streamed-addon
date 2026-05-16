@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "patient-fire-434b",
+	"name": "stremio-streamed-addon",
 	"main": "./build/worker.mjs",
 	"compatibility_date": "2026-05-16",
 	"build": {
