@@ -43,7 +43,7 @@ const getCatalog = async (
       id: `${matchedCatalogId}-${match.id}`,
       type: "tv",
       name: match.title,
-      poster: `${origin}${match.poster}`,
+      ...(match.poster && { poster: `${origin}${match.poster}` }),
       posterShape: "landscape",
     })),
   });
