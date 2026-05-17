@@ -5,7 +5,7 @@ import "net/http"
 var manifestJson = []byte(`{
 	"id": "app.stbarts.stremio-streamed-addon",
 	"version": "0.0.1",
-	"name": "Stremio Streamed Live Sports Addon",
+	"name": "Streamed Live Sports",
 	"description": "A Stremio addon that serves live streams from streamed",
 	"resources": ["catalog", "stream"],
 	"types": ["tv"],
