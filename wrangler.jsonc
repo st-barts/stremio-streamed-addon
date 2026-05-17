@@ -5,11 +5,8 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "stremio-streamed-addon",
-	"main": "./build/worker.mjs",
+	"main": "src/index.ts",
 	"compatibility_date": "2026-05-16",
-	"build": {
-		"command": "npm run build"
-	},
 	"observability": {
 		"enabled": true
 	},

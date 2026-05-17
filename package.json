@@ -3,12 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "go run github.com/syumai/workers/cmd/workers-assets-gen -mode=go && GOOS=js GOARCH=wasm go build -o ./build/app.wasm .",
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "start": "wrangler dev"
+    "start": "wrangler dev",
+    "type-check": "tsc"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250515.0",
+    "typescript": "^5.8.3",
     "wrangler": "^4.92.0"
+  },
+  "dependencies": {
+    "hono": "^4.12.19"
   }
 }
