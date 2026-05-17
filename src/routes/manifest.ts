@@ -12,6 +12,11 @@ interface Sport {
   name: string; // Display name of the sport
 }
 
+const idPrefixes = [
+  STREAMED_SPORTS_CATALOG_ID,
+  STREAMED_LIVE_SPORTS_CATALOG_ID,
+];
+
 manifest.get("/manifest.json", async (c) => {
   const { data: sports } = await fetchFromStreamed<Sport[]>("/api/sports");
 
@@ -20,7 +25,11 @@ manifest.get("/manifest.json", async (c) => {
     version: "0.0.1",
     name: "Streamed Live Sports",
     description: "A Stremio addon that serves live streams from streamed",
-    resources: ["catalog", "stream"],
+    resources: [
+      "catalog",
+      { name: "stream", types: ["tv"], idPrefixes },
+      { name: "meta", types: ["tv"], idPrefixes },
+    ],
     types: ["tv"],
     catalogs: [
       {
@@ -41,7 +50,7 @@ manifest.get("/manifest.json", async (c) => {
         name: "Streamed Sports [LIVE]",
       },
     ],
-    idPrefixes: [STREAMED_SPORTS_CATALOG_ID, STREAMED_LIVE_SPORTS_CATALOG_ID],
+    idPrefixes,
   });
 });
 
