@@ -42,7 +42,7 @@ stream.get("/tv/:matchIdRaw{(.*).json}", async (c) => {
     ).flatMap(({ data: streams }) =>
       streams.map((stream) => ({
         name: `${stream.source} ${stream.hd ? "HD ✨" : ""}`,
-        url: stream.embedUrl,
+        externalUrl: stream.embedUrl,
         behaviorHints: { notWebReady: true },
       })),
     ),
