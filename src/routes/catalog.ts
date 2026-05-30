@@ -3,33 +3,10 @@ import {
   STREAMED_LIVE_SPORTS_CATALOG_ID,
   STREAMED_SPORTS_CATALOG_ID,
 } from "../constants";
-import { fetchFromStreamed } from "../util";
+import { fetchFromStreamed, doubleBase64UrlEncode } from "../util";
+import type { APIMatch } from "../interface";
 
 const catalog = new Hono();
-
-// https://streamed.pk/docs/matches
-interface APIMatch {
-  id: string; // Unique identifier for the match
-  title: string; // Match title (e.g. "Team A vs Team B")
-  category: string; // Sport category (e.g. "football", "basketball")
-  date: number; // Unix timestamp in milliseconds
-  poster?: string; // URL path to match poster image
-  popular: boolean; // Whether the match is marked as popular
-  teams?: {
-    home?: {
-      name: string; // Home team name
-      badge: string; // URL path to home team badge
-    };
-    away?: {
-      name: string; // Away team name
-      badge: string; // URL path to away team badge
-    };
-  };
-  sources: {
-    source: string; // Stream source identifier (e.g. "alpha", "bravo")
-    id: string; // Source-specific match ID
-  }[];
-}
 
 const getCatalog = async (
   c: Context,
@@ -39,13 +16,17 @@ const getCatalog = async (
   const { origin, data } = await fetchFromStreamed<APIMatch[]>(endpoint);
 
   return c.json({
-    metas: data.map((match) => ({
-      id: `${matchedCatalogId}-${match.id}`,
-      type: "tv",
-      name: match.title,
-      ...(match.poster && { poster: `${origin}${match.poster}` }),
-      posterShape: "landscape",
-    })),
+    metas: data.map((match) => {
+      const poster = match.poster ? `${origin}${match.poster}` : "";
+
+      return {
+        id: `${matchedCatalogId}-${doubleBase64UrlEncode(match.title, match.id, poster)}`,
+        type: "tv",
+        name: match.title,
+        ...(poster && { poster }),
+        posterShape: "landscape",
+      };
+    }),
   });
 };
 
