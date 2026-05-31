@@ -6,7 +6,7 @@ If you are using this addon on your Android TV, you will need the [Browser 1](ht
 
 ## Self-Hosted Only
 
-A deployed version of this addon is not available. You will need to deploy your own, which only requires a free Cloudflare account.
+A deployed version of this addon is not available. You will need to deploy your own, which only requires a free Cloudflare account and a github account. *Note: Make sure to have your gtihub repo private to avoid any issues*
 
 ## Deploy to Cloudflare
 
