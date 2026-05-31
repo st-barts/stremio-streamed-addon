@@ -10,7 +10,7 @@ A deployed version of this addon is not available. You will need to deploy your 
 
 ## Deploy to Cloudflare
 
-[![Deploy to Cloudflare Workers](https://deploy.workers.dev/button)](https://deploy.workers.dev/)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/st-barts/stremio-streamed-addon)
 
 1. Click the deploy button above
 2. Copy the `workers.dev` URL from the deployment
