@@ -25,6 +25,7 @@ manifest.get("/manifest.json", async (c) => {
     version: "0.0.1",
     name: "Streamed Live Sports",
     description: "A Stremio addon that serves live streams from streamed",
+    logo: "https://i.imgur.com/1D9ATvf.png",
     resources: [
       "catalog",
       { name: "stream", types: ["tv"], idPrefixes },
