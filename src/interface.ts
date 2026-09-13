@@ -1,3 +1,8 @@
+export interface Env {
+  BROWSER: import("@cloudflare/puppeteer").BrowserWorker;
+  M3U8_CACHE: KVNamespace;
+}
+
 // https://streamed.pk/docs/matches
 export interface APIMatch {
   id: string; // Unique identifier for the match

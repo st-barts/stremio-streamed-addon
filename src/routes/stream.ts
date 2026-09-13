@@ -1,8 +1,9 @@
 import { Hono } from "hono";
 import { fetchFromStreamed, doubleBase64UrlDecode } from "../util";
-import { APIMatch } from "../interface";
+import { APIMatch, Env } from "../interface";
+import { EMBED_HOST } from "../constants";
 
-const stream = new Hono();
+const stream = new Hono<{ Bindings: Env }>();
 
 interface APIStream {
   id: string;
@@ -27,8 +28,10 @@ stream.get("/tv/:matchIdRaw{(.*).json}", async (c) => {
   const currentMatch = allMatches.data.find((e) => e.id === matchIdentifier);
 
   if (!currentMatch) {
-    throw new Error(`Cannot find match with identifier: ${matchIdentifier}`);
+    return c.json({ streams: [] });
   }
+
+  const origin = new URL(c.req.url).origin;
 
   return c.json({
     streams: (
@@ -40,12 +43,34 @@ stream.get("/tv/:matchIdRaw{(.*).json}", async (c) => {
         ),
       )
     ).flatMap(({ data: streams }) =>
-      streams.map((stream) => ({
-        name: stream.source,
-        ...(stream.hd && { description: "HD ✨" }),
-        externalUrl: stream.embedUrl,
-        behaviorHints: { notWebReady: true },
-      })),
+      streams.map((stream) => {
+        const embed = new URL(stream.embedUrl);
+        const description = [stream.language, stream.hd ? "HD ✨" : null]
+          .filter((part): part is string => Boolean(part))
+          .join(" · ");
+
+        if (embed.hostname !== EMBED_HOST) {
+          // Unknown embed host: fall back to opening the page in a browser.
+          return {
+            name: stream.source,
+            ...(description && { description }),
+            externalUrl: stream.embedUrl,
+            behaviorHints: { notWebReady: true },
+          };
+        }
+
+        // https://embed.st/embed/<source>/<id>/<streamNo> → ["", "embed", src, id, no]
+        const [, , src, id, no] = embed.pathname.split("/");
+        return {
+          name: stream.source,
+          ...(description && { description }),
+          url: `${origin}/m3u8/${src}/${id}/${no}.m3u8`,
+          behaviorHints: {
+            notWebReady: true,
+            bingeGroup: `streamed-${stream.source}-${stream.streamNo}`,
+          },
+        };
+      }),
     ),
   });
 });
