@@ -17,10 +17,12 @@
 	"browser": {
 		"binding": "BROWSER"
 	},
+	// KV cache for resolved playlist URLs. Intentionally declared WITHOUT an
+	// "id": Wrangler (and the Deploy to Cloudflare button) auto-provisions the
+	// namespace on first deploy and writes the id back to this file.
 	"kv_namespaces": [
 		{
-			"binding": "M3U8_CACHE",
-			"id": "780163e712a9475d8e48c8ac16df6157"
+			"binding": "M3U8_CACHE"
 		}
 	],
 	/**
