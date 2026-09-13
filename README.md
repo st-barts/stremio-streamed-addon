@@ -1,6 +1,6 @@
 # Stremio Streamed Addon
 
-A self-hosted Stremio addon for [streamed.st](https://streamed.st) live sports that serves **direct, playable HLS streams** instead of embed pages.
+A self-hosted Stremio addon for [strmd.link](https://strmd.link) live sports that serves **direct, playable HLS streams** instead of embed pages.
 
 Stremio's player can't play streamed.st's embed pages directly — the underlying CDN (`strmd.st`) only serves playlists to requests carrying `Referer: https://embed.st/`, and its "secure" playlist tokens are single-client and short-lived. This addon runs on Cloudflare Workers and solves that:
 
