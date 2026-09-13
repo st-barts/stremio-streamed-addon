@@ -9,9 +9,9 @@
     "type-check": "tsc"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250515.0",
-    "@types/node": "^25.9.1",
-    "typescript": "^5.8.3",
+    "@cloudflare/workers-types": "^5.20260911.1",
+    "@types/node": "^26.5.1",
+    "typescript": "^7.0.2",
     "wrangler": "^4.92.0"
   },
   "dependencies": {
